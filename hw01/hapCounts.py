@@ -1,23 +1,22 @@
 fin_data = open("hapCounts/sample.tsv")
 
+#hapCounts/sample.tsv
 #fin-2.136445439-136692143.tsv
 
-tuple_list_first = []
-tuple_list_second = []
-fin_data.readline()
+first_line = fin_data.readline()
+num_tuples = (len(first_line.split()) - 5) * 2 
 
-while True:
-    s = fin_data.readline()
-    
-    if s == "":
-        break
-    
-    L = s.split()
+final_list = [[] for _ in range(num_tuples)]
 
-    split_list = L[5].split(',')
-    #print(split_list)
-    tuple_list_first.append(split_list[0])
-    tuple_list_second.append(split_list[1])
 
-print(tuple(tuple_list_first))
-print(tuple(tuple_list_second))
+for line in fin_data:
+    cells = line.split()[5:]
+
+    for i, cell in enumerate(cells):
+        first, second = cell.split(',')
+        final_list[i*2].append(first)
+        final_list[2*i+1].append(second)
+
+tuple_list = [tuple(list) for list in final_list]
+
+print(tuple_list)
