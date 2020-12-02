@@ -1,7 +1,8 @@
 import pprint
+import collections
 
-def readHaps(myData):
-    data = open(myData)
+def readHaps(file_name):
+    data = open(file_name)
 
     #hapCounts/sample.tsv
     #fin-2.136445439-136692143.tsv
@@ -23,19 +24,18 @@ def readHaps(myData):
     tuple_list = [tuple(list) for list in final_list]
     return tuple_list
 
-print(readHaps("hapCounts/sample.tsv"))
-
-
+def x():
+    return 3
 
 def hapCounts(hapDataL):
-    hapCounts_Dict = {}
+    hapCounts_Dict = collections.defaultdict(int)
 
     for tup in hapDataL:
-        if tup in hapCounts_Dict:
-            hapCounts_Dict[tup] += 1
-        else:
-            hapCounts_Dict[tup] = 1
+        hapCounts_Dict[tup] += 1
 
     return hapCounts_Dict
 
-#pprint.pprint(hapCounts(tuple_list))
+
+tuple_list1 = readHaps("hapCounts/sample.tsv")
+print(tuple_list1)
+pprint.pprint(collections.Counter(tuple_list1))
